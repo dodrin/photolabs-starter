@@ -22,14 +22,16 @@ const reducer = (state, action) => {
     return {
       ...state, isShown: !state.isShown
     };
+  case ACTIONS.SELECT_PHOTO:
+    return {
+      ...state, selectedPhoto: action.payload.selectedPhoto
+    };
   default:
     return state;
   }
 };
 
 const useApplicationData = () => {
-  // const [isShown, setIsShown] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
   
   const initialState = {
     favPhotos: [],
@@ -50,16 +52,19 @@ const useApplicationData = () => {
   const toggleModal = () => {
     dispatch({ type: ACTIONS.TOGGLE_MODAL });
   };
+  
+  const togglePhotoSelection = (photo) => {
+    const { selectedPhoto } = state;
+    const newSelectedPhoto = selectedPhoto === photo ? null : photo;
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
+  };
 
   return {
     state,
     dispatch,
     toggleFav,
     toggleModal,
-    // isShown,
-    // setIsShown,
-    selectedPhoto,
-    setSelectedPhoto
+    togglePhotoSelection,
   };
 };
 
