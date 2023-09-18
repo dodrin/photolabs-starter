@@ -8,15 +8,16 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { closeModal, selectedPhoto, photos } = props;
-  
-  // find similar photos from photos object and pass the data to Photolist component
-  const similarPhotosObj = photos.find(photo => photo.id === selectedPhoto.id).similarPhotos;
-  const similarPhotosArr = Object.values(similarPhotosObj);
+  const { state, toggleModal, photos } = props;
+  const { selectedPhoto } = state;
 
+  // find similar photos from photos object and pass the data to Photolist component
+  const similarPhotosObj = photos.find(photo => photo.id === state.selectedPhoto.id).similarPhotos;
+  const similarPhotosArr = Object.values(similarPhotosObj);
+  
   return (
     <div className="photo-details-modal">
-      <button className="photo-details-modal__close-button" onClick={closeModal}>
+      <button className="photo-details-modal__close-button" onClick={toggleModal}>
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className='photo-details-modal__images'>

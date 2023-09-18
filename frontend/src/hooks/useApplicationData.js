@@ -3,7 +3,9 @@ import { useReducer, useState } from "react";
 
 const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
-  DELETE_FAV_PHOTO: 'DELETE_FAV_PHOTO'
+  DELETE_FAV_PHOTO: 'DELETE_FAV_PHOTO',
+  TOGGLE_MODAL: 'TOGGLE_MODAL',
+  SELECT_PHOTO: 'SELECT_PHOTO',
 };
 
 const reducer = (state, action) => {
@@ -16,18 +18,25 @@ const reducer = (state, action) => {
     return {
       ...state,
       favPhotos: state.favPhotos.filter((id) => id !== action.payload.photoId)};
+  case ACTIONS.TOGGLE_MODAL:
+    return {
+      ...state, isShown: !state.isShown
+    };
+  case ACTIONS.SELECT_PHOTO:
+    return {
+      ...state, selectedPhoto: action.payload.selectedPhoto
+    };
   default:
     return state;
   }
 };
 
 const useApplicationData = () => {
-  // const [favPhotos, setFavPhotos] = useState([]);
-  const [isShown, setIsShown] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
   
   const initialState = {
     favPhotos: [],
+    isShown: false,
+    selectedPhoto: null,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -40,17 +49,22 @@ const useApplicationData = () => {
     }
   };
 
+  const toggleModal = () => {
+    dispatch({ type: ACTIONS.TOGGLE_MODAL });
+  };
+  
+  const togglePhotoSelection = (photo) => {
+    const { selectedPhoto } = state;
+    const newSelectedPhoto = selectedPhoto === photo ? null : photo;
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
+  };
 
   return {
     state,
     dispatch,
     toggleFav,
-    // favPhotos,
-    // setFavPhotos,
-    isShown,
-    setIsShown,
-    selectedPhoto,
-    setSelectedPhoto
+    toggleModal,
+    togglePhotoSelection,
   };
 };
 

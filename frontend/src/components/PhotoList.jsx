@@ -4,7 +4,7 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const { state, toggleFav, photos } = props;
+  const { photos } = props;
 
   return (
     <ul className="photo-list">
