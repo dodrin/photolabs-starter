@@ -1,12 +1,14 @@
 import { useReducer, useEffect } from "react";
-import photos from "mocks/photos";
-import topics from "mocks/topics";
+// import photos from "mocks/photos";
+// import topics from "mocks/topics";
 
 const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
   DELETE_FAV_PHOTO: 'DELETE_FAV_PHOTO',
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   SELECT_PHOTO: 'SELECT_PHOTO',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA'
 };
 
 const reducer = (state, action) => {
@@ -27,6 +29,14 @@ const reducer = (state, action) => {
     return {
       ...state, selectedPhoto: action.payload.selectedPhoto
     };
+  case ACTIONS.SET_PHOTO_DATA:
+    return {
+      ...state, photoData: action.payload.photoData
+    };
+  case ACTIONS.SET_TOPIC_DATA:
+    return {
+      ...state, topicData: action.payload.topicData
+    };
   default:
     return state;
   }
@@ -38,9 +48,41 @@ const useApplicationData = () => {
     favPhotos: [],
     isShown: false,
     selectedPhoto: null,
+    photoData: [],
+    topicData: []
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    fetch('/api/photos')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photoData: data} });
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    fetch('/api/topics')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topicData: data} });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }, [dispatch]);
 
   const toggleFav = (id) => {
     if (state.favPhotos.includes(id)) {
@@ -56,13 +98,12 @@ const useApplicationData = () => {
   
   const togglePhotoSelection = (photo) => {
     const { selectedPhoto } = state;
+    console.log('State', state);
     const newSelectedPhoto = selectedPhoto === photo ? null : photo;
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
   };
 
   return {
-    photos,
-    topics,
     state,
     dispatch,
     toggleFav,
