@@ -9,7 +9,7 @@ const HomeRoute = (props) => {
 
   return (
     <div className="home-route">
-      <TopNavigation isFavPhotoExist={isFavPhotoExist} />
+      <TopNavigation {...props} isFavPhotoExist={isFavPhotoExist} />
       <PhotoList {...props} />
     </div>
   );

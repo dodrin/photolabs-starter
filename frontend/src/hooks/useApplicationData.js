@@ -1,5 +1,6 @@
-import { useReducer, useState } from "react";
-
+import { useReducer, useEffect } from "react";
+import photos from "mocks/photos";
+import topics from "mocks/topics";
 
 const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
@@ -60,6 +61,8 @@ const useApplicationData = () => {
   };
 
   return {
+    photos,
+    topics,
     state,
     dispatch,
     toggleFav,
