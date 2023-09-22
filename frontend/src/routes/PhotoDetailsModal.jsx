@@ -11,9 +11,7 @@ const PhotoDetailsModal = (props) => {
   const { state, toggleModal, photos } = props;
   const { selectedPhoto } = state;
 
-  // find similar photos from photos object and pass the data to Photolist component
-  const similarPhotosObj = photos.find(photo => photo.id === state.selectedPhoto.id).similarPhotos;
-  const similarPhotosArr = Object.values(similarPhotosObj);
+  const similarPhotosArr = selectedPhoto.similar_photos;
   
   return (
     <div className="photo-details-modal">
