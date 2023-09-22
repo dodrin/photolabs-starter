@@ -7,7 +7,7 @@ const ACTIONS = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SET_TOPIC_PHOTOS: 'SET_TOPIC_PHOTOS',
+  SET_PHOTO_BY_TOPIC: 'SET_PHOTO_BY_TOPIC',
 };
 
 const reducer = (state, action) => {
@@ -36,9 +36,9 @@ const reducer = (state, action) => {
     return {
       ...state, topicData: action.payload.topicData
     };
-  case ACTIONS.SET_TOPIC_PHOTOS:
+  case ACTIONS.SET_PHOTO_BY_TOPIC:
     return {
-      ...state, topicPhotos: action.payload.topicPhotos
+      ...state, photosData: action.payload.topicId
     };
   default:
     return state;
@@ -53,7 +53,7 @@ const useApplicationData = () => {
     selectedPhoto: null,
     photoData: [],
     topicData: [],
-    
+    selectedTopicId: null
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -86,20 +86,6 @@ const useApplicationData = () => {
       .catch((error) => {
         throw error;
       });
-
-    // fetch('/api/topics/photos/:topic_id')
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       throw new Error(`Request failed with status: ${res.status}`);
-    //     }
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     dispatch({ type: ACTIONS.SET_TOPIC_ID, payload: { topicPhotos: data } });
-    //   })
-    //   .catch((error) => {
-    //     throw error;
-    //   });
   }, [dispatch]);
 
   const toggleFav = (id) => {
@@ -121,12 +107,17 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
   };
 
+  const selectTopic = (id) => {
+    console.log(id);
+  };
+
   return {
     state,
     dispatch,
     toggleFav,
     toggleModal,
     togglePhotoSelection,
+    selectTopic
   };
 };
 

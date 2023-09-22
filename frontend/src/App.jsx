@@ -11,11 +11,20 @@ const App = () => {
     toggleFav,
     toggleModal,
     togglePhotoSelection,
+    selectTopic
   } = useApplicationData();
   
   return (
     <div className="App">
-      <HomeRoute state={state} topics={topics} toggleFav={toggleFav} toggleModal={toggleModal} photos={state.photoData} togglePhotoSelection={togglePhotoSelection} />
+      <HomeRoute
+        state={state}
+        topics={topics}
+        toggleFav={toggleFav}
+        toggleModal={toggleModal}
+        photos={state.photoData}
+        togglePhotoSelection={togglePhotoSelection}
+        selectTopic={selectTopic}
+      />
       {!!state.isShown && <PhotoDetailsModal state={state} toggleFav={toggleFav} toggleModal={toggleModal} togglePhotoSelection={togglePhotoSelection} photos={state.photoData}/>}
     </div>
   );

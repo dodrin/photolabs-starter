@@ -8,7 +8,7 @@ const TopicList = (props) => {
   return (
     <div className="top-nav-bar__topic-list">
       {state.topicData.map((topic) => (
-        <TopicListItem key={topic.id} data={topic}/>
+        <TopicListItem {...props} key={topic.id} data={topic}/>
       ))}
     </div>
   );
