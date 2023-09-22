@@ -6,7 +6,7 @@ const PhotoListItem = (props) => {
   const { photoData, toggleModal, togglePhotoSelection } = props;
 
   const { id, location, urls, user } = photoData;
-  console.log('PhotolistItem', photoData);
+  
   const handlePhotoClick = () => {
     toggleModal();
     togglePhotoSelection(photoData);

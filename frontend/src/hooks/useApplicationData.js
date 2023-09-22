@@ -1,6 +1,4 @@
 import { useReducer, useEffect } from "react";
-// import photos from "mocks/photos";
-// import topics from "mocks/topics";
 
 const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
@@ -8,7 +6,8 @@ const ACTIONS = {
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   SELECT_PHOTO: 'SELECT_PHOTO',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA'
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  SET_TOPIC_PHOTOS: 'SET_TOPIC_PHOTOS',
 };
 
 const reducer = (state, action) => {
@@ -37,6 +36,10 @@ const reducer = (state, action) => {
     return {
       ...state, topicData: action.payload.topicData
     };
+  case ACTIONS.SET_TOPIC_PHOTOS:
+    return {
+      ...state, topicPhotos: action.payload.topicPhotos
+    };
   default:
     return state;
   }
@@ -49,7 +52,8 @@ const useApplicationData = () => {
     isShown: false,
     selectedPhoto: null,
     photoData: [],
-    topicData: []
+    topicData: [],
+    
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -63,7 +67,7 @@ const useApplicationData = () => {
         return res.json();
       })
       .then((data) => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photoData: data} });
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photoData: data } });
       })
       .catch((error) => {
         throw error;
@@ -77,11 +81,25 @@ const useApplicationData = () => {
         return res.json();
       })
       .then((data) => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topicData: data} });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topicData: data } });
       })
       .catch((error) => {
         throw error;
       });
+
+    // fetch('/api/topics/photos/:topic_id')
+    //   .then((res) => {
+    //     if (!res.ok) {
+    //       throw new Error(`Request failed with status: ${res.status}`);
+    //     }
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     dispatch({ type: ACTIONS.SET_TOPIC_ID, payload: { topicPhotos: data } });
+    //   })
+    //   .catch((error) => {
+    //     throw error;
+    //   });
   }, [dispatch]);
 
   const toggleFav = (id) => {
@@ -92,14 +110,14 @@ const useApplicationData = () => {
     }
   };
 
+  // close modal
   const toggleModal = () => {
     dispatch({ type: ACTIONS.TOGGLE_MODAL });
   };
   
+  //open modal
   const togglePhotoSelection = (photo) => {
-    const { selectedPhoto } = state;
-    console.log('State', state);
-    const newSelectedPhoto = selectedPhoto === photo ? null : photo;
+    const newSelectedPhoto = state.selectedPhoto === photo ? null : photo;
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
   };
 
