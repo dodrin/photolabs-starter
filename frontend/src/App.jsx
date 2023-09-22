@@ -25,7 +25,15 @@ const App = () => {
         togglePhotoSelection={togglePhotoSelection}
         selectTopic={selectTopic}
       />
-      {!!state.isShown && <PhotoDetailsModal state={state} toggleFav={toggleFav} toggleModal={toggleModal} togglePhotoSelection={togglePhotoSelection} photos={state.photoData}/>}
+      
+      {!!state.isShown &&
+        <PhotoDetailsModal
+          state={state}
+          toggleFav={toggleFav}
+          toggleModal={toggleModal}
+          togglePhotoSelection={togglePhotoSelection}
+          photos={state.photoData}
+        />}
     </div>
   );
 };

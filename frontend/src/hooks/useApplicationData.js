@@ -7,7 +7,7 @@ const ACTIONS = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SET_PHOTO_BY_TOPIC: 'SET_PHOTO_BY_TOPIC',
+  SET_SELECTED_TOPIC_ID: 'SET_SELECTED_TOPIC_ID',
 };
 
 const reducer = (state, action) => {
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
     return {
       ...state, topicData: action.payload.topicData
     };
-  case ACTIONS.SET_PHOTO_BY_TOPIC:
+  case ACTIONS.SET_SELECTED_TOPIC_ID:
     return {
       ...state, photosData: action.payload.topicId
     };
@@ -53,7 +53,7 @@ const useApplicationData = () => {
     selectedPhoto: null,
     photoData: [],
     topicData: [],
-    selectedTopicId: null
+    selectedTopicId: null,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -88,6 +88,7 @@ const useApplicationData = () => {
       });
   }, [dispatch]);
 
+  // like and unlike function
   const toggleFav = (id) => {
     if (state.favPhotos.includes(id)) {
       dispatch({ type: ACTIONS.DELETE_FAV_PHOTO, payload: { photoId: id } });
@@ -96,19 +97,36 @@ const useApplicationData = () => {
     }
   };
 
-  // close modal
+  // Open and close modal
   const toggleModal = () => {
     dispatch({ type: ACTIONS.TOGGLE_MODAL });
   };
   
-  //open modal
+  // Set selected photo data to modal
   const togglePhotoSelection = (photo) => {
     const newSelectedPhoto = state.selectedPhoto === photo ? null : photo;
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { selectedPhoto: newSelectedPhoto }});
   };
 
+  // Select topic by onClick and fetch data by topic id
   const selectTopic = (id) => {
-    console.log(id);
+    dispatch({ type: ACTIONS.SET_SELECTED_TOPIC_ID, payload: { topicId: id } });
+  
+    if (id) {
+      fetch(`/api/topics/photos/${id}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Request failed with status: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photoData: data } });
+        })
+        .catch((error) => {
+          throw error;
+        });
+    }
   };
 
   return {
