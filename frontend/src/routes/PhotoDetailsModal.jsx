@@ -8,7 +8,7 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { state, toggleModal, photos } = props;
+  const { state, toggleModal } = props;
   const { selectedPhoto } = state;
 
   const similarPhotosArr = selectedPhoto.similar_photos;
