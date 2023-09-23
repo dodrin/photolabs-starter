@@ -1,3 +1,6 @@
+!["Photolabs - landing page"](./img/PhotoLabs_SS_01.png)
+![photolabs - modal view"](./img/PhotoLabs_SS_02.png)
+
 # react-photolabs
 The PhotoLabs project for the Web Development React course programming.
 
@@ -22,3 +25,10 @@ Read `backend/readme` for further setup details.
 cd backend
 npm start
 ```
+
+## Dependencies
+* React
+* Create React App
+* Webpack
+* Babel
+* Express
