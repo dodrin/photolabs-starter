@@ -5,11 +5,11 @@ import TopicList from './TopicList';
 import FavBadge from './FavBadge';
 
 const TopNavigation = (props) => {
-  const { isFavPhotoExist } = props;
+  const { isFavPhotoExist, backToAllPhotos } = props;
   
   return (
     <div className="top-nav-bar">
-      <span className="top-nav-bar__logo">PhotoLabs</span>
+      <span className="top-nav-bar__logo" onClick={() => backToAllPhotos()}>PhotoLabs</span>
       <TopicList {...props} />
       <FavBadge isFavPhotoExist={isFavPhotoExist} />
     </div>

@@ -11,7 +11,8 @@ const App = () => {
     toggleFav,
     toggleModal,
     togglePhotoSelection,
-    selectTopic
+    selectTopic,
+    backToAllPhotos
   } = useApplicationData();
   
   return (
@@ -24,6 +25,7 @@ const App = () => {
         photos={state.photoData}
         togglePhotoSelection={togglePhotoSelection}
         selectTopic={selectTopic}
+        backToAllPhotos={backToAllPhotos}
       />
       
       {!!state.isShown &&

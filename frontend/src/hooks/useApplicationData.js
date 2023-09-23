@@ -88,7 +88,7 @@ const useApplicationData = () => {
       });
   }, [dispatch]);
 
-  // like and unlike function
+  // like and unlike photo function
   const toggleFav = (id) => {
     if (state.favPhotos.includes(id)) {
       dispatch({ type: ACTIONS.DELETE_FAV_PHOTO, payload: { photoId: id } });
@@ -129,13 +129,31 @@ const useApplicationData = () => {
     }
   };
 
+  // when topic is slected but want to go back to display all the photos
+  const backToAllPhotos = () => {
+    fetch('/api/photos')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photoData: data } });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
   return {
     state,
     dispatch,
     toggleFav,
     toggleModal,
     togglePhotoSelection,
-    selectTopic
+    selectTopic,
+    backToAllPhotos
   };
 };
 
