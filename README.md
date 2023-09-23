@@ -1,5 +1,5 @@
-!["Photolabs - landing page"](./img/PhotoLabs_SS_01.png)
-![photolabs - modal view"](./img/PhotoLabs_SS_02.png)
+!["Photolabs - landing page"](./img/screenshot-01.png)
+![photolabs - modal view"](./img/screenshot-02.png)
 
 # react-photolabs
 The PhotoLabs project for the Web Development React course programming.
