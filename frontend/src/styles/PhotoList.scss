@@ -1,15 +1,23 @@
+@use './base';
+
 .photo-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  // background-color: #f5f5f5;
+  // background-color: base.$light-bg;
 }
 
 .photo-list:after {
   content: "";
   flex: 0 1 30%;
   margin: 5px;
+}
+
+.dark {
+  .photo-list {
+    background-color: base.$dark-bg;
+  }
 }

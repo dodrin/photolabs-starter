@@ -12,11 +12,14 @@ const App = () => {
     toggleModal,
     togglePhotoSelection,
     selectTopic,
-    backToAllPhotos
+    backToAllPhotos,
+    switchDark,
   } = useApplicationData();
+
+  const dark = (state.isDark === true) ? `dark` : ``;
   
   return (
-    <div className="App">
+    <div className={`App ${dark}`}>
       <HomeRoute
         state={state}
         topics={topics}
@@ -26,6 +29,7 @@ const App = () => {
         togglePhotoSelection={togglePhotoSelection}
         selectTopic={selectTopic}
         backToAllPhotos={backToAllPhotos}
+        switchDark={switchDark}
       />
       
       {!!state.isShown &&

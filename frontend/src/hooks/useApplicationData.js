@@ -8,6 +8,7 @@ const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SET_SELECTED_TOPIC_ID: 'SET_SELECTED_TOPIC_ID',
+  TOGGLE_DARK_MODE: 'TOGGLE_DARK_MODE',
 };
 
 const reducer = (state, action) => {
@@ -40,6 +41,10 @@ const reducer = (state, action) => {
     return {
       ...state, photosData: action.payload.topicId
     };
+  case ACTIONS.TOGGLE_DARK_MODE:
+    return {
+      ...state, isDark: !state.isDark
+    };
   default:
     return state;
   }
@@ -54,6 +59,7 @@ const useApplicationData = () => {
     photoData: [],
     topicData: [],
     selectedTopicId: null,
+    isDark: false,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -146,6 +152,10 @@ const useApplicationData = () => {
       });
   };
 
+  const switchDark = () => {
+    dispatch({ type: ACTIONS.TOGGLE_DARK_MODE });
+  };
+
   return {
     state,
     dispatch,
@@ -153,7 +163,8 @@ const useApplicationData = () => {
     toggleModal,
     togglePhotoSelection,
     selectTopic,
-    backToAllPhotos
+    backToAllPhotos,
+    switchDark,
   };
 };
 

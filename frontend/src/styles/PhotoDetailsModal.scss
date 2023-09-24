@@ -1,5 +1,7 @@
+@use './base';
+
 .photo-details-modal {
-  background-color: white;
+  background-color: base.$light-bg_card;
   box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
   position: absolute;
   top: 55%;
@@ -12,9 +14,9 @@
 }
 
 .photo-details-modal__close-button {
-  background-color: white;
+  background-color: base.$light-bg_card;
   border: none;
-  color: white;
+  color: base.$light-bg_card;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -58,4 +60,15 @@
   margin-top: 24px;
   margin-bottom: 24px;
   width: 90%;
+}
+
+.dark {
+  .photo-details-modal {
+    background-color: base.$dark-bg;
+  }
+
+  .photo-details-modal__close-button {
+    background-color: base.$dark-bg;
+    color: base.$light-bg;
+  }
 }
