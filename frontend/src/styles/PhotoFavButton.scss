@@ -1,3 +1,5 @@
+@use './base';
+
 .photo-list__fav-icon {
   position: relative;
   top: 8px;
@@ -22,3 +24,9 @@
   justify-content: center;
   align-items: center;
 }
+
+// .dark {
+//   .photo-list__fav-icon {
+//     background-color: base.$dark-bg_card;
+//   }
+// }

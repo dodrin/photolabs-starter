@@ -1,4 +1,5 @@
 import React from 'react';
+import SwitchLabels from './SwitchLabels';
 
 import '../styles/TopNavigationBar.scss';
 import TopicList from './TopicList';
@@ -11,7 +12,10 @@ const TopNavigation = (props) => {
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo" onClick={() => backToAllPhotos()}>PhotoLabs</span>
       <TopicList {...props} />
-      <FavBadge isFavPhotoExist={isFavPhotoExist} />
+      <div className='topn-nav-bar__icons'>
+        <FavBadge isFavPhotoExist={isFavPhotoExist} className='favbadge' />
+        <SwitchLabels {...props}/>
+      </div>
     </div>
   );
 };
