@@ -4,10 +4,9 @@ import SwitchLabels from './SwitchLabels';
 import '../styles/TopNavigationBar.scss';
 import TopicList from './TopicList';
 import FavBadge from './FavBadge';
-import { Fragment } from 'react';
 
 const TopNavigation = (props) => {
-  const { isFavPhotoExist, backToAllPhotos, switchDark } = props;
+  const { isFavPhotoExist, backToAllPhotos } = props;
   
   return (
     <div className="top-nav-bar">

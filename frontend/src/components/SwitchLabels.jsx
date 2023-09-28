@@ -7,7 +7,7 @@ export default function SwitchLabels(props) {
   const { switchDark } = props;
   return (
     <FormGroup>
-      <FormControlLabel control={<Switch onClick={switchDark}/>} label="Dark" />
+      <FormControlLabel control={<Switch onClick={switchDark}/>} className='dark-switch'/>
     </FormGroup>
   );
 }

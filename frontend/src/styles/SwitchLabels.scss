@@ -1,0 +1,7 @@
+@use './base';
+
+.dark {
+  .dark-switch {
+    color: base.$dark-secondary;
+  }
+}
